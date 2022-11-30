@@ -60,4 +60,9 @@ end
 ]]
 function Paddle:render()
     love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+    if (player1Score-player2Score) >=5 then 
+        love.graphics.setColor(0, 1, 0,1)
+    elseif (player1Score-player2Score) >=3 then 
+        love.graphics.setColor(0, 0, 1)
+    end
 end
