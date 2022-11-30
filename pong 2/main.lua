@@ -202,11 +202,11 @@ function love.update(dt)
         end
     end
 
-    -- player 1 movement
-    if love.keyboard.isDown('w') then
-        player1.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('s') then
-        player1.dy = PADDLE_SPEED
+    -- player 1 movement (AI)
+    if (player1.y < (ball.y+2)) then
+        player1.dy = PADDLE_SPEED/7
+    elseif (player1.y > (ball.y+2)) then
+        player1.dy = -PADDLE_SPEED/7
     else
         player1.dy = 0
     end
@@ -218,6 +218,18 @@ function love.update(dt)
         player2.dy = PADDLE_SPEED
     else
         player2.dy = 0
+    end
+    -- powerups 
+    if (player1Score-player2Score)>= 3 then
+        player2:update(dt * 1.25)
+    end
+
+    if (player1Score-player2Score)>= -3 then
+        player1:update(dt * 1.25)
+    end
+    if (player1Score-player2Score)>= 5 then
+        player2.height = player2.height + 20 * (dt*.02)
+
     end
 
     -- update our ball based on its DX and DY only if we're in play state;
